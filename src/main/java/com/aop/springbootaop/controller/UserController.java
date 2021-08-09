@@ -1,5 +1,6 @@
 package com.aop.springbootaop.controller;
 
+import com.aop.springbootaop.caching.CacheController;
 import com.aop.springbootaop.dto.UserDTO;
 import com.aop.springbootaop.map.UserMapper;
 import com.aop.springbootaop.model.User;
@@ -22,6 +23,8 @@ public class UserController {
     final UserMapper userMapper;
 
     final UserService userService;
+
+    final CacheController cacheController;
 
 
 
@@ -69,7 +72,10 @@ public class UserController {
         return ResponseEntity.ok(userMapper.toUserDTO(user.get()));
     }
     @GetMapping("/users")
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<User>> findAll() throws InterruptedException {
+
+        cacheController.cacheControl();
+
         return ResponseEntity.ok(userMapper.toUsers(userService.getUsers()));
     }
 
