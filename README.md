@@ -8,6 +8,7 @@
 
 * AOP
 * Swagger
+* Redis
 
 ## Used Technologies
 
